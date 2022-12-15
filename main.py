@@ -5,8 +5,10 @@ pygame.init()
 screen=pygame.display.set_mode((800,600))
 pygame.display.set_caption("Judgemental Typing")
 #icon for gui window
+
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 icon = pygame.image.load('venta.jpg')
 pygame.display.set_icon(icon)
 pygame.display.update()
