@@ -1,6 +1,7 @@
 import pygame
 import os
 import sys
+import time
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 pygame.init()
 
@@ -11,7 +12,7 @@ class typing:
 		self.h=720
 		self.reset=True
 		self.active=False
-		self.input_Text=''
+		self.input_text=''
 		self.word=''
 		self.total_time=0
 		self.accuracy='0%'
@@ -22,7 +23,7 @@ class typing:
 		self.green = (0, 255, 0)
 		self.blue = (0, 0, 128)
 
-		self.bg = pygame.image.load('bg4.jpg')
+		self.bg = pygame.image.load('bg6.jpg')
 		self.bg = pygame.transform.scale(self.bg, (1200, 720))
 
 		self.screen=pygame.display.set_mode((self.w,self.h))
@@ -67,6 +68,8 @@ class typing:
 						self.active=True
 						self.getlinenormal()
 						self.resetg2()
+						self.run2()
+						break
 					elif (x >= 50 and x <= 200 and y >= 350 and y <= 450):
 						self.active=True
 						self.getlinenormal()
@@ -78,6 +81,39 @@ class typing:
 
 			pygame.display.update()
 
+	def run2(self):
+		self.running = True
+		while (self.running):
+			clock = pygame.time.Clock()
+			self.screen.fill(self.green, (100, 250, 1000, 50))
+			pygame.draw.rect(self.screen, (255, 192, 25), (100, 250, 1000, 50), 3)
+			self.text_display(self.screen, self.input_text, 600, 275, 30, self.white)
+			pygame.display.update()
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					self.running = False
+					sys.exit()
+				elif event.type == pygame.MOUSEBUTTONUP:
+					x,y = pygame.mouse.get_pos()
+					if (x >= 100 and x <= 1000 and y >= 250 and y <= 350):
+						self.active=True
+						self.input_text=''
+						self.time_start=time.time()
+				elif event.type == pygame.KEYDOWN:
+					if self.active and not self.end:
+						if event.key == pygame.K_RETURN:
+							print(self.input_text)
+							self.results()
+                            #print(self.results)
+							self.text_display(self.screen, self.results, 350, 28, self.white)
+							self.end = True
+						elif event.key == pygame.K_BACKSPACE:
+							self.input_text=self.input_text[:-1]
+						else:
+							try:
+								self.input_text+=event.unicode
+							except:
+								pass
 	def resetg(self):
 		self.screen=pygame.display.set_mode((self.w,self.h))
 		pygame.display.update()
@@ -109,12 +145,12 @@ class typing:
 		self.wpm = 0
 
 		self.screen.fill((0,0,0))
-		self.text_display(self.screen,"Judgemental Typing",400,60,40,self.white)
+		self.text_display(self.screen,"Judgemental Typing",600,60,40,self.white)
 
 		# draw the rectangle for input box
-		self.screen.fill((50, 0, 0), (50, 250, 650, 50))
-		pygame.draw.rect(self.screen, (255, 192, 25), (50, 250, 650, 50), 5)
-		self.text_display(self.screen, self.word, 200,270,25, self.white )
+		
+		
+		self.text_display(self.screen, self.word, 200,200,25, self.white )
 		
 		pygame.display.update()
 
