@@ -18,7 +18,7 @@ blue = (0, 0, 128)
 
 #adding text to the gui window
 font = pygame.font.Font("freesansbold.ttf",32)
-text = font.render("Judemental Typing", True , green )
+text = font.render("Judgemental Typing", True , green )
 textRect= text.get_rect()
 textRect.center = (400, 50)
 
@@ -31,4 +31,3 @@ while running:
 		if event.type == pygame.QUIT:
 			running = False
 	pygame.display.update()
-
