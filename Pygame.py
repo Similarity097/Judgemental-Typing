@@ -22,17 +22,8 @@ import pygame
 # Define some colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
- 
-pygame.init()
- 
-# Set the height and width of the screen
-size = [700, 500]
-screen = pygame.display.set_mode(size)
- 
-pygame.display.set_caption("My Game")
- 
-# Loop until the user clicks the close button.
-done = False
+  
+
  
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
@@ -41,7 +32,7 @@ font = pygame.font.Font(None, 25)
  
 frame_count = 0
 frame_rate = 60
-start_time = 90
+start_time = 60
  
 # -------- Main Program Loop -----------
 while not done:
@@ -49,9 +40,7 @@ while not done:
         if event.type == pygame.QUIT:  # If user clicked close
             done = True  # Flag that we are done so we exit this loop
  
-    # Set the screen background
-    screen.fill(WHITE)
- 
+   
     # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
  
     # --- Timer going up ---
