@@ -24,8 +24,10 @@ class typing:
 		self.blue = (0, 0, 128)
 		self.space="\n"
 
-		self.bg = pygame.image.load('bg6.jpg')
+		self.bg = pygame.image.load('bg5.jpg')
 		self.bg = pygame.transform.scale(self.bg, (1200, 720))
+		self.bg2 = pygame.image.load('bg5.jpg')
+		self.bg2 = pygame.transform.scale(self.bg2, (1200, 720))
 
 		self.screen=pygame.display.set_mode((self.w,self.h))
 		pygame.display.set_caption("Judgemental Typing")
@@ -75,10 +77,14 @@ class typing:
 						self.active=True
 						self.getlinenormal()
 						self.resetg2()
+						self.run2()
+						break
 					elif (x >= 50 and x <= 200 and y >= 450 and y <= 550):
 						self.active=True
 						self.getlinenormal()
 						self.resetg2()
+						self.run2()
+						break
 
 			pygame.display.update()
 
@@ -86,9 +92,17 @@ class typing:
 		self.running = True
 		while (self.running):
 			clock = pygame.time.Clock()
-			self.screen.fill((0,0,0), (50, 250, 1100, 50))
-			pygame.draw.rect(self.screen, (255, 192, 25), (50, 250, 1100, 50), 3)
-			self.text_display(self.screen, self.input_text, 100, 275, 30, self.white)
+
+			self.screen.fill((0,0,0), (50, 350, 1100, 50))
+			pygame.draw.rect(self.screen, (159,43,104), (50, 350, 1100, 50), 3)
+
+			#input font commands
+			font = pygame.font.Font("freesansbold.ttf", 30)
+			txt_surface = font.render(self.input_text, True, self.white)
+			self.screen.blit(txt_surface, (60, 360))
+			# end of input commands
+
+			#self.text_display(self.screen, self.input_text, 100, 275, 30, self.white)
 			pygame.display.update()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -123,7 +137,7 @@ class typing:
 		
 		self.screen.fill((0,0,0))
 		self.screen.blit(self.bg, (0, 0))
-		self.text_display(self.screen,"Judgemental Typing",600,60,40,self.white)
+		self.text_display(self.screen,"Judgemental Typing",600,80,40,self.white)
 		self.text_display(self.screen,"Select Difficulty",190,200,40,self.white)
 
 		#pygame.draw.rect(self.screen, (255, 192, 25), (10, 250, 200, 100), 5)
@@ -135,6 +149,7 @@ class typing:
 
 	def resetg2(self):
 		self.screen=pygame.display.set_mode((self.w,self.h))
+		
 		pygame.display.update()
 		self.reset=False
 		self.end = False
@@ -144,10 +159,10 @@ class typing:
 		self.wpm = 0
 
 		self.screen.fill((0,0,0))
-		self.text_display(self.screen,"Judgemental Typing",600,60,40,self.white)
+		self.screen.blit(self.bg2, (0, 0))
+		self.text_display(self.screen,"Judgemental Typing",600,80,40,self.white)
 
-		# draw the rectangle for input box
-		self.text_display(self.screen, self.word, 200,200,25, self.white )
+		self.text_display(self.screen, self.word, 600,250,35, self.white )
 		
 		pygame.display.update()
 
