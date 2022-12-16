@@ -202,5 +202,4 @@ class typing:
 		
 		pygame.display.update()
 
-execute=typing()
-execute.run()
+typing().run()
