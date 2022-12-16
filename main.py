@@ -20,7 +20,7 @@ class typing:
 		self.time_start= 0
 		self.total_time=0
 		self.accuracy='0%'
-		self.results= "Time:0 Accuracy:0 % Wpm:0"
+		self.results= "Time:0 Accuracy:0% Wpm:0"
 		self.wpm=0
 		self.end=False
 		self.white = (255, 255, 255)
@@ -48,7 +48,6 @@ class typing:
 		lines = open(name).read().splitlines()
 		return random.choice(lines)
 		
-	
 	def result(self):
 		if not self.end:
 			self.total_time = time.time() - self.time_start
@@ -68,17 +67,6 @@ class typing:
 
 			self.text_display(self.screen,"Reset",600,600,30,self.white)
 			pygame.display.update()
-		#add print statements and codes for result
-
-	def timeshow(self):
-		font=pygame.freetype.SysFont(None,34)
-		font.origin=True
-		ticks=pygame.time.get_ticks()
-		mills=int(ticks%1000)
-		seconds=int(ticks/1000%60)
-		minutes=int(ticks/60000%24)
-		out='{minutes:02d}:{seconds:02d}:{mills}'.format(minutes=minutes, mills=mills, seconds=seconds)
-		font.render_to(self.screen, (100, 200), out, pygame.Color('white'))
 
 	def run(self):
 		
@@ -121,19 +109,13 @@ class typing:
 			clock = pygame.time.Clock()
 
 			self.screen.fill((0,0,0), (50, 350, 1100, 50))
-			#self.screen.fill((0,0,0), (100, 165, 160, 40))
 			pygame.draw.rect(self.screen, (159,43,104), (50, 350, 1100, 50), 3)
+			
+			self.text_display(self.screen,self.input_text,600,375,30,self.white)
+			#font = pygame.font.Font("freesansbold.ttf", 30)
+			#txt_surface = font.render(self.input_text, True, self.white)
+			#self.screen.blit(txt_surface, (60, 360))
 
-			#input font commands
-			#self.text_display(self.screen,self.input_text,60,360,30,self.white)
-			font = pygame.font.Font("freesansbold.ttf", 30)
-			txt_surface = font.render(self.input_text, True, self.white)
-			self.screen.blit(txt_surface, (60, 360))
-
-			#self.timeshow()
-			# end of input commands
-
-			#self.text_display(self.screen, self.input_text, 100, 275, 30, self.white)
 			pygame.display.update()
 			for event in pygame.event.get():
 				if event.type == QUIT:
@@ -141,19 +123,25 @@ class typing:
 					sys.exit()
 				elif event.type == pygame.MOUSEBUTTONUP:
 					x,y = pygame.mouse.get_pos()
+					#INPUT BOX
 					if (x >= 50 and x <= 1100 and y >= 350 and y <= 400):
 						self.active=True
 						self.input_text= ''
 						self.time_start=time.time()
-					elif (x >= 550 and x <= 650 and y >= 600 and y <= 670):
+					#RESET BOX
+					if (x >= 550 and x <= 650 and y >= 600 and y <= 670):
 						self.run()
 						x, y= pygame.mouse.get_pos()
 				elif event.type == pygame.KEYDOWN:
 					if self.active and not self.end:
 						if event.key == pygame.K_RETURN:
+							print(self.input_text)
 							self.result()
-							self.text_display(self.screen,self.results,600,500,28,self.white)
+							print(self.results)
+							self.text_display(
+								self.screen,self.results,600,500,28,self.white)
 							self.end=True
+
 						elif event.key == pygame.K_BACKSPACE:
 							self.input_text=self.input_text[:-1]
 						else:
@@ -176,7 +164,6 @@ class typing:
 		self.text_display(self.screen,"Judgemental Typing",600,80,40,self.white)
 		self.text_display(self.screen,"Select Difficulty",190,200,40,self.white)
 
-		#pygame.draw.rect(self.screen, (255, 192, 25), (10, 250, 200, 100), 5)
 		self.text_display(self.screen,"1. Easy",100,300,40,self.white)
 		self.text_display(self.screen,"2. Medium",130,400,40,self.white)
 		self.text_display(self.screen,"3. Hard",104,500,40,self.white)
