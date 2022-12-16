@@ -13,7 +13,7 @@ class typing:
 	def __init__(self):
 		self.w=1200
 		self.h=720
-		self.reset=True
+		#self.reset=True
 		self.active=False
 		self.input_text=''
 		self.word=''
@@ -129,7 +129,7 @@ class typing:
 						self.input_text= ''
 						self.text_display(self.screen,self.input_text,600,375,30,self.white)
 						self.time_start=time.time()
-					if (x >= 550 and x <= 650 and y >= 600 and y <= 670):
+					if (x >= 550 and x <= 650 and y >= 550 and y <= 670):
 						self.run()
 						x, y= pygame.mouse.get_pos()
 				elif (event.type == pygame.KEYDOWN):
@@ -150,7 +150,7 @@ class typing:
 	def resetg(self):
 		self.screen=pygame.display.set_mode((self.w,self.h))
 		pygame.display.update()
-		self.reset=False
+		#self.reset=False
 		self.end = False
 		self.input_text = ''
 		self.word = ''
@@ -170,7 +170,7 @@ class typing:
 		self.screen=pygame.display.set_mode((self.w,self.h))
 		
 		pygame.display.update()
-		self.reset=False
+		#self.reset=False
 		self.end = False
 		self.type= True
 		self.input_text = ''
