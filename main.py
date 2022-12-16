@@ -98,7 +98,8 @@ class typing:
 					x,y = pygame.mouse.get_pos()
 					if (x >= 100 and x <= 1000 and y >= 250 and y <= 600):
 						self.active=True
-						self.input_text=self.time_start=time.time()
+						self.input_text=''
+						self.time_start=time.time()
 				elif event.type == pygame.KEYDOWN:
 					if self.active and not self.end:
 						if event.key == pygame.K_RETURN:
