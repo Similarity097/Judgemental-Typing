@@ -22,6 +22,7 @@ class typing:
 		self.white = (255, 255, 255)
 		self.green = (0, 255, 0)
 		self.blue = (0, 0, 128)
+		self.space="\n"
 
 		self.bg = pygame.image.load('bg6.jpg')
 		self.bg = pygame.transform.scale(self.bg, (1200, 720))
@@ -85,9 +86,9 @@ class typing:
 		self.running = True
 		while (self.running):
 			clock = pygame.time.Clock()
-			self.screen.fill(self.green, (100, 250, 1000, 50))
-			pygame.draw.rect(self.screen, (255, 192, 25), (100, 250, 1000, 50), 3)
-			self.text_display(self.screen, self.input_text, 600, 275, 30, self.white)
+			self.screen.fill((0,0,0), (50, 250, 1100, 50))
+			pygame.draw.rect(self.screen, (255, 192, 25), (50, 250, 1100, 50), 3)
+			self.text_display(self.screen, self.input_text, 100, 275, 30, self.white)
 			pygame.display.update()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -95,18 +96,15 @@ class typing:
 					sys.exit()
 				elif event.type == pygame.MOUSEBUTTONUP:
 					x,y = pygame.mouse.get_pos()
-					if (x >= 100 and x <= 1000 and y >= 250 and y <= 350):
+					if (x >= 100 and x <= 1000 and y >= 250 and y <= 600):
 						self.active=True
-						self.input_text=''
-						self.time_start=time.time()
+						self.input_text=self.time_start=time.time()
 				elif event.type == pygame.KEYDOWN:
 					if self.active and not self.end:
 						if event.key == pygame.K_RETURN:
-							print(self.input_text)
-							self.results()
-                            #print(self.results)
-							self.text_display(self.screen, self.results, 350, 28, self.white)
-							self.end = True
+							self.input_text=self.input_text+self.space
+							self.input_text+=event.unicode
+							self.end = False
 						elif event.key == pygame.K_BACKSPACE:
 							self.input_text=self.input_text[:-1]
 						else:
@@ -148,8 +146,6 @@ class typing:
 		self.text_display(self.screen,"Judgemental Typing",600,60,40,self.white)
 
 		# draw the rectangle for input box
-		
-		
 		self.text_display(self.screen, self.word, 200,200,25, self.white )
 		
 		pygame.display.update()
