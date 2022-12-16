@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 import os
 import sys
 import pygame.freetype
@@ -16,6 +17,7 @@ class typing:
 		self.active=False
 		self.input_text=''
 		self.word=''
+		self.time_start= 0
 		self.total_time=0
 		self.accuracy='0%'
 		self.results= "Time:0 Accuracy:0 % Wpm:0"
@@ -24,7 +26,6 @@ class typing:
 		self.white = (255, 255, 255)
 		self.green = (0, 255, 0)
 		self.blue = (0, 0, 128)
-		self.space="\n"
 
 		self.bg = pygame.image.load('bg5.jpg')
 		self.bg = pygame.transform.scale(self.bg, (1200, 720))
@@ -35,11 +36,10 @@ class typing:
 		pygame.display.set_caption("Judgemental Typing")
 		icon = pygame.image.load('venta.jpg')
 		pygame.display.set_icon(icon)
-		pygame.display.update()
 
 	def text_display(self,screen,msg,x,y,fsize,color):
 		font = pygame.font.Font("freesansbold.ttf", fsize)
-		text = font.render(msg , True , color)
+		text = font.render(msg , 1 , color)
 		text_rect = text.get_rect(center=(x, y))
 		screen.blit(text, text_rect)
 		pygame.display.update()
@@ -66,12 +66,9 @@ class typing:
 			self.end =True
 			self.results='Time:'+str(round(self.total_time)) + " secs   Accuracy:" + str(round(self.accuracy)) + "%" + '   Wpm: ' + str(round(self.wpm))
 
+			self.text_display(self.screen,"Reset",600,600,30,self.white)
 			pygame.display.update()
 		#add print statements and codes for result
-
-	def getlinenormal(self):
-		self.word="SAMPLE TEXT"
-		
 
 	def timeshow(self):
 		font=pygame.freetype.SysFont(None,34)
@@ -128,25 +125,30 @@ class typing:
 			pygame.draw.rect(self.screen, (159,43,104), (50, 350, 1100, 50), 3)
 
 			#input font commands
+			#self.text_display(self.screen,self.input_text,60,360,30,self.white)
 			font = pygame.font.Font("freesansbold.ttf", 30)
 			txt_surface = font.render(self.input_text, True, self.white)
 			self.screen.blit(txt_surface, (60, 360))
+
 			#self.timeshow()
 			# end of input commands
 
 			#self.text_display(self.screen, self.input_text, 100, 275, 30, self.white)
 			pygame.display.update()
 			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
+				if event.type == QUIT:
 					self.running = False
 					sys.exit()
 				elif event.type == pygame.MOUSEBUTTONUP:
 					x,y = pygame.mouse.get_pos()
 					if (x >= 50 and x <= 1100 and y >= 350 and y <= 400):
 						self.active=True
-						self.input_text=''
+						self.input_text= ''
 						self.time_start=time.time()
-				elif ((event.type == pygame.KEYDOWN) and self.active):
+					elif (x >= 550 and x <= 650 and y >= 600 and y <= 670):
+						self.run()
+						x, y= pygame.mouse.get_pos()
+				elif event.type == pygame.KEYDOWN:
 					if self.active and not self.end:
 						if event.key == pygame.K_RETURN:
 							self.result()
@@ -156,7 +158,7 @@ class typing:
 							self.input_text=self.input_text[:-1]
 						else:
 							try:
-								self.input_text+=event.unicode
+								self.input_text += event.unicode
 							except:
 								pass
 			pygame.display.update()
