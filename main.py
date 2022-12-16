@@ -1,6 +1,7 @@
 import pygame
 import os
 import sys
+import pygame.freetype
 import time
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 pygame.init()
@@ -52,6 +53,17 @@ class typing:
 
 	def getlinenormal(self):
 		self.word="SAMPLE TEXT"
+		
+
+	def timeshow(self):
+		font=pygame.freetype.SysFont(None,34)
+		font.origin=True
+		ticks=pygame.time.get_ticks()
+		mills=int(ticks%1000)
+		seconds=int(ticks/1000%60)
+		minutes=int(ticks/60000%24)
+		out='{minutes:02d}:{seconds:02d}:{mills}'.format(minutes=minutes, mills=mills, seconds=seconds)
+		font.render_to(self.screen, (100, 200), out, pygame.Color('white'))
 
 	def run(self):
 		
@@ -85,7 +97,7 @@ class typing:
 						self.resetg2()
 						self.run2()
 						break
-
+				clock.tick(60)
 			pygame.display.update()
 
 	def run2(self):
@@ -94,12 +106,15 @@ class typing:
 			clock = pygame.time.Clock()
 
 			self.screen.fill((0,0,0), (50, 350, 1100, 50))
+			self.screen.fill((0,0,0), (100, 165, 160, 40))
 			pygame.draw.rect(self.screen, (159,43,104), (50, 350, 1100, 50), 3)
 
 			#input font commands
 			font = pygame.font.Font("freesansbold.ttf", 30)
 			txt_surface = font.render(self.input_text, True, self.white)
 			self.screen.blit(txt_surface, (60, 360))
+			self.timeshow()
+			#self.timeshow()
 			# end of input commands
 
 			#self.text_display(self.screen, self.input_text, 100, 275, 30, self.white)
@@ -127,6 +142,7 @@ class typing:
 								self.input_text+=event.unicode
 							except:
 								pass
+			clock.tick(60)
 	def resetg(self):
 		self.screen=pygame.display.set_mode((self.w,self.h))
 		pygame.display.update()
