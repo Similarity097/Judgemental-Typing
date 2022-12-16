@@ -48,7 +48,22 @@ class typing:
 		#add code for importing lines
 	
 	def result(self):
-		return
+		if not self.end:
+			self.total_time = time.time() - self.time_start
+
+			count=0
+			for i,c in enumerate(self.word):
+				try:
+					if self.input_text[i]==c:
+						count+=1
+				except:
+					pass
+			self.accuracy = count/len(self.word)*100
+
+			self.wpm = len(self.input_text)*60/(5*self.total_time)
+			self.end =True
+			self.results='Time:'+str(round(self.total_time)) + " secs   Accuracy:" + str(round(self.accuracy)) + "%" + '   Wpm: ' + str(round(self.wpm))
+
 		#add print statements and codes for result
 
 	def getlinenormal(self):
@@ -132,9 +147,9 @@ class typing:
 				elif event.type == pygame.KEYDOWN:
 					if self.active and not self.end:
 						if event.key == pygame.K_RETURN:
-							self.input_text=self.input_text+self.space
-							self.input_text+=event.unicode
-							self.end = False
+							self.result()
+							self.text_display(self.screen,self.results,600,500,28,self.white)
+							self.end=True
 						elif event.key == pygame.K_BACKSPACE:
 							self.input_text=self.input_text[:-1]
 						else:
