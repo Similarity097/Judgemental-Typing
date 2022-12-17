@@ -4,7 +4,7 @@ organism represents its life span. Life spans of a few
 organisms are given in Figure 1.1. Several other organisms,
 are drawn, for which you should find out their life spans
 and write in the spaces provided. Examine the life spans
-of organisms represented in the Figure 1.1. Isn’t it both
+of organisms represented in the Figure 1.1. Isn't it both
 interesting and intriguing, to note that it may be as short
 as a few days or as long as a few thousand years? Between,
 these two extremes are the life spans of most other living
@@ -31,7 +31,7 @@ generation after generation.You will study later in Chapter
 5 how genetic variation is created and inherited during 
 reproduction. There is a large diversity in the biological 
 world and each organism has evolved its own mechanism to 
-multiply and produce offspring. The organism’s habitat, its 
+multiply and produce offspring. The organism's habitat, its 
 internal physiology and several other factors are 
 collectively responsible for how it reproduces. Based on 
 whether there is participation of one organism or two in 
