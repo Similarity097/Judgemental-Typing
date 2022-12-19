@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import os
 import time
+import sys
 import random
 
 # import os is used to change defaukt import directory from python to the current file's folder
@@ -70,7 +71,7 @@ class typing:
                     pass
 
             self.accuracy = count/len(self.word)*100
-            self.wpm = len(self.input_text)/(5*self.total_time)
+            self.wpm = len(self.input_text)*60/(5*self.total_time)
             self.stop = True
             self.results = 'Time: '+str(round(self.total_time)) + " secs  |  Accuracy: " + str(
                 round(self.accuracy)) + "%" + '  |  Wpm: ' + str(round(self.wpm))
