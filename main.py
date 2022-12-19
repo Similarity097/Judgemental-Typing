@@ -22,8 +22,6 @@ class typing:
         self.word = ''
         self.time_start = 0
         self.total_time = 0
-        self.accuracy = '0%'
-        self.results = "Time:0 Accuracy:0% Wpm:0"
         self.wpm = 0
         self.stop = False
 
@@ -51,8 +49,10 @@ class typing:
         # function to import random line from the selected text file
         # read() is to read the file and bring its contents
         # splitlines is to split the lines at \n from the.txt file and assign them to a list
-        lines = open(name).read().splitlines()
-        return random.choice(lines)
+        filename = open(name).read()
+        lines = filename.splitlines()
+        line = random.choice(lines)
+        return line
 
     def result(self):
         # function to print the final result of the code
@@ -70,7 +70,7 @@ class typing:
                     pass
 
             self.accuracy = count/len(self.word)*100
-            self.wpm = len(self.input_text)*60/(5*self.total_time)
+            self.wpm = len(self.input_text)/(5*self.total_time)
             self.stop = True
             self.results = 'Time: '+str(round(self.total_time)) + " secs  |  Accuracy: " + str(
                 round(self.accuracy)) + "%" + '  |  Wpm: ' + str(round(self.wpm))
@@ -208,7 +208,6 @@ class typing:
         self.screen = pygame.display.set_mode((self.w, self.h))
         pygame.display.update()
 
-        self.stop = False
         self.input_text = ''
         self.word = ''
 
@@ -232,7 +231,6 @@ class typing:
 
         self.stop = False
         self.active = False
-        self.input_text = ''
         self.time_start = 0
         self.total_time = 0
         self.wpm = 0
@@ -242,7 +240,6 @@ class typing:
 
         self.text_display(self.screen, "Judgemental Typing",
                           600, 80, 50, self.white)
-        pygame.draw.rect(self.screen, (159, 43, 104), (50, 350, 1100, 50), 3)
         self.text_display(self.screen, self.word, 600, 250, 35, self.white)
 
         pygame.display.update()
